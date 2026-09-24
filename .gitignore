@@ -1,0 +1,13 @@
+# Binaries & Compiled Classes
+bin/
+*.class
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.iml
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
