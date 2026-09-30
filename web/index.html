@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex ExamFlow | Academic Exam & Result Management System</title>
+    <meta name="description" content="State-of-the-art Examination and Result Management System for Universities & Autonomous Institutions. Secure marksheet generation, instant result verification, and exam scheduling.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#home" class="brand">
+                <div class="brand-icon">E</div>
+                <div class="brand-text">
+                    <h1>Apex ExamFlow</h1>
+                    <span>Exam & Result Management</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-route="home">Home</a></li>
+                <li><a href="#results" class="nav-link" data-route="results">Results</a></li>
+                <li><a href="#schedule" class="nav-link" data-route="schedule">Timetable</a></li>
+                <li><a href="#hallticket" class="nav-link" data-route="hallticket">Hall Ticket</a></li>
+                <li><a href="#student" class="nav-link" data-route="student">Student</a></li>
+                <li><a href="#faculty" class="nav-link" data-route="faculty">Faculty</a></li>
+                <li><a href="#admin" class="nav-link" data-route="admin">CoE Admin</a></li>
+                <li><a href="#revaluation" class="nav-link" data-route="revaluation">Re-evaluation</a></li>
+                <li><a href="#analytics" class="nav-link" data-route="analytics">Analytics</a></li>
+                <li><a href="#notices" class="nav-link" data-route="notices">Circulars</a></li>
+            </ul>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div id="backendStatusIndicator" style="font-size: 12px; margin-right: 6px;"></div>
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Urgent Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="container ticker-inner">
+            <span class="ticker-badge">LIVE NOTICE</span>
+            <div class="ticker-content" id="homeTickerText">
+                Semester IV Examination Results Declared  ★  Admit Card Download active for Regular & Arrear candidates  ★  Re-evaluation portal open
+            </div>
+        </div>
+    </div>
+
+    <!-- Main View Container -->
+    <main class="view-container">
+        <div class="container">
+
+            <!-- ================================================================= -->
+            <!-- PAGE 1: FRONT PAGE (CLEAN, SIMPLE DESIGN)                         -->
+            <!-- ================================================================= -->
+            <section class="page-view active" id="view-home">
+                <div class="hero-section">
+                    <div class="hero-badge">
+                        <span>🎓 Apex Institute of Technology & Science</span>
+                    </div>
+                    <h2 class="hero-title">
+                        Academic Examination & <span class="gradient-text">Result Portal</span>
+                    </h2>
+                    <p class="hero-description">
+                        Fast, secure, and transparent academic examination lifecycle management. Check instant marks, download authenticated grade cards, view schedules, and access portal suites.
+                    </p>
+
+                    <!-- Simple, Clean Quick Result Lookup Box -->
+                    <div class="quick-search-card">
+                        <form id="frontSearchForm">
+                            <div class="search-input-group">
+                                <input type="text" id="frontRollInput" class="search-input" placeholder="Enter Student Roll No (e.g. 2024CS101)" required autocomplete="off">
+                                <select id="frontSemSelect" class="search-select">
+                                    <option value="4">Semester 4</option>
+                                    <option value="3">Semester 3</option>
+                                    <option value="2">Semester 2</option>
+                                    <option value="1">Semester 1</option>
+                                </select>
+                                <button type="submit" class="btn-search">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    Check Result
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="sample-pills">
+                            <span>Quick test candidates:</span>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS101')">2024CS101 (Saran V)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS102')">2024CS102 (Priya S)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS103')">2024CS103 (Aditya V)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024EC302')">2024EC302 (Rahul M)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Access Portals Grid -->
+                <div class="portals-grid">
+                    <a href="#results" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: var(--primary-light); color: var(--primary);">📜</div>
+                            <h3>Marksheets & Results</h3>
+                        </div>
+                        <p>Search and print authenticated semester grade sheets with cryptographic verification QR codes.</p>
+                        <span class="portal-action-link">View Grade Cards →</span>
+                    </a>
+
+                    <a href="#schedule" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: var(--success-light); color: var(--success);">📅</div>
+                            <h3>Exam Timetable</h3>
+                        </div>
+                        <p>Explore session schedules, date sheets, venue halls, and morning/afternoon session slots.</p>
+                        <span class="portal-action-link">View Timetable →</span>
+                    </a>
+
+                    <a href="#hallticket" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: var(--warning-light); color: var(--warning);">🎫</div>
+                            <h3>Hall Ticket / Admit Card</h3>
+                        </div>
+                        <p>Download official examination admit cards with candidate photos, barcodes, and eligibility check.</p>
+                        <span class="portal-action-link">Generate Admit Card →</span>
+                    </a>
+
+                    <a href="#student" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: var(--accent-light); color: var(--accent);">👤</div>
+                            <h3>Student Dashboard</h3>
+                        </div>
+                        <p>Track academic progress, cumulative CGPA, earned credits, and attendance eligibility (75%+).</p>
+                        <span class="portal-action-link">Open Dashboard →</span>
+                    </a>
+
+                    <a href="#faculty" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: #fdf2f8; color: #db2777;">✍️</div>
+                            <h3>Faculty Gradebook</h3>
+                        </div>
+                        <p>Direct entry of internal and end-term marks with automatic CBCS grade computation and class analytics.</p>
+                        <span class="portal-action-link">Access Gradebook →</span>
+                    </a>
+
+                    <a href="#admin" class="portal-card">
+                        <div class="portal-card-header">
+                            <div class="portal-icon-wrapper" style="background: #f5f3ff; color: #7c3aed;">🏛️</div>
+                            <h3>CoE Examination Suite</h3>
+                        </div>
+                        <p>Moderation rules, grace marks allocation, batch result publishing, and examination audit controls.</p>
+                        <span class="portal-action-link">CoE Admin Tools →</span>
+                    </a>
+                </div>
+
+                <!-- Key Metrics Statistics Counter -->
+                <div class="stats-banner">
+                    <div class="stat-item">
+                        <h4 id="statTotalStudents">12,450+</h4>
+                        <span>Registered Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="statPassRate">98.4%</h4>
+                        <span>Average Pass Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="statAvgSgpa">8.42</h4>
+                        <span>University Mean SGPA</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 style="color: var(--success);">100%</h4>
+                        <span>Digital Authenticity</span>
+                    </div>
+                </div>
+
+                <!-- Recent Circulars on Home Page -->
+                <div style="margin-top: 36px;">
+                    <div class="page-header" style="margin-top: 0; margin-bottom: 20px;">
+                        <h3 style="font-size: 20px;">Recent Examination Notices & Circulars</h3>
+                    </div>
+                    <div id="homeCircularsList"></div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 2: PUBLIC RESULT SEARCH & DIGITAL MARKSHEET                   -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-results">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>📜</span> Official Marksheet & Result Verification
+                    </h2>
+                    <p class="page-subtitle">Enter your roll number to access authenticated semester grade sheets with official university verification stamps.</p>
+                </div>
+
+                <div class="result-search-bar">
+                    <form id="resultSearchForm" style="display: flex; flex-wrap: wrap; gap: 12px; width: 100%; align-items: center;">
+                        <input type="text" id="resultRollInput" class="search-input" style="max-width: 340px;" placeholder="Roll Number (e.g. 2024CS101)" required>
+                        <select id="resultSemSelect" class="search-select">
+                            <option value="4">Semester 4 (May 2026)</option>
+                            <option value="3">Semester 3</option>
+                            <option value="2">Semester 2</option>
+                            <option value="1">Semester 1</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">
+                            Search Marksheet
+                        </button>
+                        <div class="sample-pills" style="margin-left: auto;">
+                            <span>Try:</span>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS101')">2024CS101 (Saran V)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS102')">2024CS102 (Priya S)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024CS103')">2024CS103 (Aditya V)</button>
+                            <button type="button" class="pill-btn" onclick="App.fillSampleRoll('2024EC302')">2024EC302 (Rahul M)</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="resultLoadingSpinner" style="display: none; text-align: center; padding: 40px;">
+                    <div style="font-size: 16px; font-weight: 600; color: var(--primary);">Retrieving verified academic record from server...</div>
+                </div>
+
+                <div id="marksheetDisplayContainer">
+                    <div class="card" style="text-align: center; padding: 48px 24px; color: var(--text-secondary);">
+                        <div style="font-size: 36px; margin-bottom: 12px;">🔍</div>
+                        <h4 style="font-size: 18px; margin-bottom: 6px;">Search for your Examination Result</h4>
+                        <p style="font-size: 14px; max-width: 440px; margin: 0 auto 16px;">
+                            Enter your University Roll Number above or click any sample candidate pill to load a live CBCS marksheet with QR verification.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 3: EXAM TIMETABLE & SCHEDULE                                 -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-schedule">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>📅</span> Examination Timetable & Schedule
+                    </h2>
+                    <p class="page-subtitle">Official date sheet, session timings (FN/AN), course codes, and hall allocations for Semester Examinations 2026.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <div class="form-group" style="min-width: 200px;">
+                        <label>Department</label>
+                        <select id="schedDeptFilter" class="filter-select">
+                            <option value="ALL">All Departments</option>
+                            <option value="Computer Science & Engineering">Computer Science & Engg</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="min-width: 140px;">
+                        <label>Semester</label>
+                        <select id="schedSemFilter" class="filter-select">
+                            <option value="ALL">All Semesters</option>
+                            <option value="4" selected>Semester 4</option>
+                            <option value="6">Semester 6</option>
+                            <option value="8">Semester 8</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="min-width: 150px;">
+                        <label>Exam Type</label>
+                        <select id="schedTypeFilter" class="filter-select">
+                            <option value="ALL">All Types</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Supplementary">Supplementary</option>
+                            <option value="Lab Practical">Lab Practical</option>
+                        </select>
+                    </div>
+                    <div style="margin-left: auto; display: flex; align-items: flex-end;">
+                        <button type="button" class="btn btn-secondary" onclick="App.printDocument()">
+                            🖨️ Print Schedule PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject / Course Title</th>
+                                    <th>Session</th>
+                                    <th>Exam Date</th>
+                                    <th>Time Slot</th>
+                                    <th>Venue / Hall</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 4: HALL TICKET / ADMIT CARD                                  -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-hallticket">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>🎫</span> Hall Ticket / Admit Card Portal
+                    </h2>
+                    <p class="page-subtitle">Generate official examination hall tickets with candidate verification, attendance check, barcode, and date sheet.</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 24px;">
+                    <form id="hallTicketForm" style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;">
+                        <div class="form-group" style="flex: 1; min-width: 240px;">
+                            <label>Student Roll Number</label>
+                            <input type="text" id="admitRollInput" class="form-control" placeholder="e.g. 2024CS101" value="2024CS101" required>
+                        </div>
+                        <div class="form-group" style="min-width: 180px;">
+                            <label>Date of Birth</label>
+                            <input type="date" id="admitDobInput" class="form-control" value="2004-05-14">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Generate Admit Card
+                        </button>
+                    </form>
+                </div>
+
+                <div class="hallticket-container" id="hallTicketDisplayContainer">
+                    <div class="card" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <div style="font-size: 36px; margin-bottom: 12px;">🪪</div>
+                        <h4 style="font-size: 18px; margin-bottom: 6px;">Ready to Generate Hall Ticket</h4>
+                        <p style="font-size: 14px;">Click "Generate Admit Card" above to download or print your official examination pass.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 5: STUDENT ACADEMIC DASHBOARD                                -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-student">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>👤</span> Student Academic Dashboard
+                    </h2>
+                    <p class="page-subtitle">Comprehensive overview of academic progression, cumulative CGPA, credits, and examination eligibility.</p>
+                </div>
+
+                <!-- Student Switcher -->
+                <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px;">SV</div>
+                        <div>
+                            <h3 id="dashStudentName" style="font-size: 17px;">Saran V</h3>
+                            <span id="dashStudentDept" style="font-size: 12px; color: var(--text-secondary);">B.Tech - Computer Science & Engineering</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn btn-secondary" style="font-size: 13px;" onclick="App.loadStudentDashboard('2024CS101')">Saran V</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: 13px;" onclick="App.loadStudentDashboard('2024CS102')">Priya S</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: 13px;" onclick="App.loadStudentDashboard('2024CS103')">Aditya V</button>
+                        <button type="button" class="btn btn-secondary" style="font-size: 13px;" onclick="App.loadStudentDashboard('2024EC302')">Rahul M</button>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-banner" style="margin-bottom: 24px;">
+                    <div class="stat-item">
+                        <h4 id="dashCgpa">9.42</h4>
+                        <span>Cumulative CGPA</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="dashSgpa">9.60</h4>
+                        <span>Semester 4 SGPA</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="dashCredits">20 / 20</h4>
+                        <span>Credits Earned</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="dashAttendance" style="color: var(--success);">94.5%</h4>
+                        <span>Attendance (Eligible)</span>
+                    </div>
+                </div>
+
+                <!-- Marks Summary Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Current Semester Course Performance (Semester 4)</h3>
+                        <button type="button" class="btn btn-secondary" style="font-size: 12px;" onclick="App.navigate('results')">
+                            View Official Grade Card →
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Course Title</th>
+                                    <th style="text-align:center;">Credits</th>
+                                    <th style="text-align:center;">Total Marks</th>
+                                    <th style="text-align:center;">Letter Grade</th>
+                                    <th style="text-align:center;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashMarksSummary">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 6: FACULTY / EXAMINER GRADING SUITE                          -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-faculty">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>✍️</span> Faculty & Examiner Grading Portal
+                    </h2>
+                    <p class="page-subtitle">Enter student marks, view real-time CBCS grade computations, and lock submissions to the Controller of Examinations.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Enter Course Evaluation Marks</h3>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Select Student</label>
+                            <select id="facultyStudentSelect" class="form-control">
+                                <!-- Dynamic options -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course / Subject</label>
+                            <select id="facultySubjectSelect" class="form-control">
+                                <!-- Dynamic options -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Internal / Midterm Marks (Max 30)</label>
+                            <input type="number" id="facultyInternalInput" class="form-control" min="0" max="40" value="28" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label>End-Semester External (Max 70)</label>
+                            <input type="number" id="facultyExternalInput" class="form-control" min="0" max="70" value="62" step="0.5">
+                        </div>
+                    </div>
+
+                    <!-- Live Grade Computation Preview -->
+                    <div style="background: var(--bg-tertiary); padding: 18px 24px; border-radius: var(--radius-md); margin-bottom: 20px; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 14px;">
+                        <div style="text-align: center;">
+                            <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Computed Total</span>
+                            <div id="facultyLiveTotal" style="font-size: 24px; font-weight: 800; color: var(--text-primary);">90.0</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Assigned Grade</span>
+                            <div id="facultyLiveGrade" style="font-size: 24px; font-weight: 800; color: var(--primary);">O (10 pts)</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Result Status</span>
+                            <div id="facultyLiveStatus" style="margin-top: 4px;"><span class="badge badge-pass">PASS</span></div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                        <button type="button" class="btn btn-primary" id="facultySubmitMarksBtn">
+                            Submit Marks to Controller of Examinations
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 7: CONTROLLER OF EXAMINATIONS (CoE) ADMIN SUITE              -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-admin">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>🏛️</span> Controller of Examinations (CoE) Suite
+                    </h2>
+                    <p class="page-subtitle">Batch publication, moderation rule adjustments, examination scheduling, and audit oversight.</p>
+                </div>
+
+                <div class="portals-grid">
+                    <div class="card">
+                        <h3 style="margin-bottom: 8px;">Batch Result Publishing</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">Publish or withhold the complete results database for Semester IV.</p>
+                        <button type="button" class="btn btn-success" id="btnAdminPublish">
+                            Publish Semester IV Results (Live)
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 8px;">Moderation & Grace Marks</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">Apply standard university moderation policy (up to 3 marks) for borderline subjects.</p>
+                        <button type="button" class="btn btn-warning" id="btnAdminGrace">
+                            Apply 3-Mark Moderation Rule
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 8: RE-EVALUATION & SCRUTINY PORTAL                           -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-revaluation">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>⚖️</span> Re-evaluation & Scrutiny Portal
+                    </h2>
+                    <p class="page-subtitle">Apply for paper re-totalling, answer script copies, or full re-evaluation by external examiners.</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 28px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Submit Re-evaluation Request</h3>
+                    </div>
+                    <form id="revalSubmitForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Candidate Roll Number</label>
+                                <input type="text" id="revalRollInput" class="form-control" placeholder="e.g. 2024CS103" value="2024CS103" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Subject Code</label>
+                                <select id="revalSubjectSelect" class="form-control">
+                                    <option value="CS404">CS404 - Computer Networks & Protocols</option>
+                                    <option value="CS401">CS401 - Design and Analysis of Algorithms</option>
+                                    <option value="EC401">EC401 - Signals and Systems</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Service Requested</label>
+                                <select id="revalTypeSelect" class="form-control">
+                                    <option value="Re-evaluation">Paper Re-evaluation (₹750)</option>
+                                    <option value="Re-totalling">Re-totalling of Marks (₹300)</option>
+                                    <option value="Answer Script Copy">Answer Script Photocopy (₹500)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button type="submit" class="btn btn-primary">
+                                Submit Application & Generate Challan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Live Re-evaluation Requests Registry</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Application ID</th>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Type</th>
+                                    <th>Fee</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="revalListBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 9: ANALYTICS & MERIT RANK LISTS                              -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-analytics">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>📊</span> University Examination Analytics & Toppers
+                    </h2>
+                    <p class="page-subtitle">Merit rank list, gold medalists, department pass rate comparison, and statistical distribution.</p>
+                </div>
+
+                <!-- Stats Summary -->
+                <div class="stats-banner" style="margin-bottom: 28px;">
+                    <div class="stat-item">
+                        <h4 id="anTotalStudents">8</h4>
+                        <span>Registered Batches</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="anPassCount" style="color: var(--success);">7</h4>
+                        <span>Candidates Passed</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="anArrearCount" style="color: var(--danger);">1</h4>
+                        <span>Pending Arrears</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 id="anOverallRate" style="color: var(--primary);">87.5%</h4>
+                        <span>Overall Pass Rate</span>
+                    </div>
+                </div>
+
+                <!-- Toppers Rank List -->
+                <div class="card" style="margin-bottom: 28px;">
+                    <div class="card-header">
+                        <h3 class="card-title">🏆 University Merit Rank Holders (Semester 4)</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;">Rank</th>
+                                    <th>Student Name</th>
+                                    <th>Roll Number</th>
+                                    <th>Department</th>
+                                    <th style="text-align:center;">SGPA</th>
+                                    <th style="text-align:center;">CGPA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="toppersTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Department Pass Percentage -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Department-wise Pass Rate Distribution</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Academic Department</th>
+                                    <th style="text-align:center;">Candidates Appeared</th>
+                                    <th style="text-align:center;">Candidates Cleared</th>
+                                    <th style="text-align:center; min-width: 220px;">Pass Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deptPassTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================= -->
+            <!-- PAGE 10: OFFICIAL NOTICES & EXAMINATION CODE                      -->
+            <!-- ================================================================= -->
+            <section class="page-view" id="view-notices">
+                <div class="page-header">
+                    <h2 class="page-title">
+                        <span>📢</span> Examination Circulars & Code of Conduct
+                    </h2>
+                    <p class="page-subtitle">Official notifications, Choice Based Credit System (CBCS) ordinance, and malpractice rules.</p>
+                </div>
+
+                <div id="fullNoticesList">
+                    <!-- Dynamic notice cards -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand" style="margin-bottom: 12px;">
+                        <div class="brand-icon" style="width: 32px; height: 32px; font-size: 16px;">E</div>
+                        <div class="brand-text">
+                            <h2 style="font-size: 16px;">Apex ExamFlow</h2>
+                        </div>
+                    </div>
+                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                        Apex Institute of Technology & Science examination administration portal. Autonomous institution accredited with Grade 'A++' by NAAC.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Portals</h4>
+                    <ul>
+                        <li><a href="#results">Results & Marksheets</a></li>
+                        <li><a href="#schedule">Exam Timetables</a></li>
+                        <li><a href="#hallticket">Hall Tickets</a></li>
+                        <li><a href="#student">Student Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Administration</h4>
+                    <ul>
+                        <li><a href="#faculty">Faculty Gradebook</a></li>
+                        <li><a href="#admin">CoE Office Suite</a></li>
+                        <li><a href="#revaluation">Re-evaluation</a></li>
+                        <li><a href="#analytics">Merit Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Helpdesk</h4>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                        Controller of Examinations<br>
+                        Email: <a href="mailto:coe@apexuniversity.edu">coe@apexuniversity.edu</a><br>
+                        Phone: +91 44 2250 1234
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Apex Institute of Technology & Science. All Rights Reserved.</div>
+                <div>Java 21 Powered • Choice Based Credit System (CBCS)</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/qrcode.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
